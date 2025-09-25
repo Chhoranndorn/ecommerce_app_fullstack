@@ -1,18 +1,24 @@
 import 'package:e_commerce_app/app/routes/app_pages.dart';
 import 'package:get/get.dart';
+import '../../../data/providers/auth_provider.dart';
 
 class LoginController extends GetxController {
-  var email = ''.obs;
-  var password = ''.obs;
+  final AuthProvider provider = AuthProvider();
 
-  void login() {
-    if (email.isEmpty || password.isEmpty) {
-      Get.snackbar("Error", "Please fill all fields");
-    } else {
-      // TODO: Call API or Firebase login
-      Get.snackbar("Success", "Logged in as $email");
+  var isLoading = false.obs;
+
+  Future<void> login(String email, String password) async {
+    try {
+      print("here");
+      isLoading.value = true;
+      final response = await provider.login(email, password);
+      Get.snackbar("Success", "Welcome ${response.data['user']['name']}");
+      // navigate to home after login
       Get.offAllNamed(Routes.HOME);
-
+    } catch (e) {
+      Get.snackbar("Error", e.toString());
+    } finally {
+      isLoading.value = false;
     }
   }
 }

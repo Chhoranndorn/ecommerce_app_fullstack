@@ -7,33 +7,48 @@ class SignupView extends GetView<SignupController> {
 
   @override
   Widget build(BuildContext context) {
+    final nameCtrl = TextEditingController();
+    final emailCtrl = TextEditingController();
+    final passCtrl = TextEditingController();
+
     return Scaffold(
-      appBar: AppBar(title: const Text("Signup")),
+      appBar: AppBar(title: Text("Register")),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
+        padding: EdgeInsets.all(16),
+        child: Obx(() => Column(
           children: [
             TextField(
-              decoration: const InputDecoration(labelText: "Email"),
-              onChanged: (val) => controller.email.value = val,
+              controller: nameCtrl,
+              decoration: InputDecoration(labelText: "Name"),
             ),
             TextField(
-              decoration: const InputDecoration(labelText: "Password"),
-              obscureText: true,
-              onChanged: (val) => controller.password.value = val,
+              controller: emailCtrl,
+              decoration: InputDecoration(labelText: "Email"),
             ),
             TextField(
-              decoration: const InputDecoration(labelText: "Confirm Password"),
+              controller: passCtrl,
+              decoration: InputDecoration(labelText: "Password"),
               obscureText: true,
-              onChanged: (val) => controller.confirmPassword.value = val,
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: controller.signup,
-              child: const Text("Sign Up"),
-            ),
+            SizedBox(height: 20),
+            controller.isLoading.value
+                ? CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: () {
+                      controller.register(
+                        nameCtrl.text,
+                        emailCtrl.text,
+                        passCtrl.text,
+                      );
+                    },
+                    child: Text("Sign Up"),
+                  ),
+            TextButton(
+              onPressed: () => Get.offAllNamed('/login'),
+              child: Text("Already have an account? Login"),
+            )
           ],
-        ),
+        )),
       ),
     );
   }
