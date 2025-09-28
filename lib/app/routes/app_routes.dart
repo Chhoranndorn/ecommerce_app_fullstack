@@ -6,6 +6,12 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const LOGIN = _Paths.LOGIN;
   static const SIGNUP = _Paths.SIGNUP;
+  static const DASHBOARD = _Paths.DASHBOARD;
+  static const CATEGORIES = _Paths.CATEGORIES;
+  static const CART = _Paths.CART;
+  static const FAVORITES = _Paths.FAVORITES;
+  static const PROFILE = _Paths.PROFILE;
+  static const DRAWER = _Paths.DRAWER;
 }
 
 abstract class _Paths {
@@ -13,4 +19,10 @@ abstract class _Paths {
   static const HOME = '/home';
   static const LOGIN = '/login';
   static const SIGNUP = '/signup';
+  static const DASHBOARD = '/dashboard';
+  static const CATEGORIES = '/categories';
+  static const CART = '/cart';
+  static const FAVORITES = '/favorites';
+  static const PROFILE = '/profile';
+  static const DRAWER = '/drawer';
 }
