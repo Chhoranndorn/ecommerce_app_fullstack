@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/app/widgets/custom_cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
@@ -8,6 +9,7 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+   
     final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     return Scaffold(
@@ -110,16 +112,19 @@ class HomeView extends GetView<HomeController> {
                       scrollDirection: Axis.horizontal,
                       itemCount: controller.specials.length,
                       itemBuilder: (context, index) {
+                        
                         final item = controller.specials[index];
+                        print("imagss:${item.image}");
                         return Container(
                           width: 180,
                           margin: const EdgeInsets.only(right: 12),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                              image: AssetImage(item["image"]!),
-                              fit: BoxFit.cover,
-                            ),
+                                        image: 
+                                        DecorationImage(
+              image: NetworkImage(item.image), // ✅ model property
+              fit: BoxFit.cover,
+            ),
                           ),
                           child: Container(
                             alignment: Alignment.bottomCenter,
@@ -129,7 +134,7 @@ class HomeView extends GetView<HomeController> {
                             ),
                             padding: const EdgeInsets.all(8),
                             child: Text(
-                              item["name"]!,
+                              item.name,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -163,14 +168,15 @@ class HomeView extends GetView<HomeController> {
                                 color: Colors.green.shade50,
                                 borderRadius: BorderRadius.circular(50),
                               ),
-                              child: Image.asset(
-                                cat["icon"]!,
-                                width: 40,
-                                height: 40,
-                              ),
+child: CustomCachedImage(
+  imageUrl: cat.icon,
+  width: 40,
+  height: 40,
+  borderRadius: BorderRadius.circular(50),
+),
                             ),
                             const SizedBox(height: 6),
-                            Text(cat["name"]!),
+                            Text(cat.name),
                           ],
                         );
                       },
@@ -197,6 +203,7 @@ class HomeView extends GetView<HomeController> {
                     ),
                     itemBuilder: (context, index) {
                       final product = controller.products[index];
+                      print("product_image: ${product.image}");
                       return Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -216,11 +223,11 @@ class HomeView extends GetView<HomeController> {
                               child: ClipRRect(
                                 borderRadius: const BorderRadius.vertical(
                                     top: Radius.circular(16)),
-                                child: Image.asset(
-                                  product["image"]!.toString(),
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                ),
+  child: Image.network(
+  product.image, // ✅ NetworkImage
+  fit: BoxFit.cover,
+  width: double.infinity,
+),
                               ),
                             ),
                             Padding(
@@ -229,14 +236,14 @@ class HomeView extends GetView<HomeController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    product["name"]!.toString(),
+                                    product.name.toString(),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    "\$${product["price"]}",
+                                    "\$${product.price}",
                                     style: const TextStyle(
                                         color: Colors.green),
                                   ),
