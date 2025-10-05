@@ -13,56 +13,63 @@ class HomeController extends GetxController {
   var user = {}.obs;
   var isLoading = true.obs;
   var errorMessage = "".obs;
-  var specials = <Special>[].obs;
-  var categories = <Category>[].obs;
-  var products = <Product>[].obs;
+  // var specials = <Special>[].obs;
+  // var categories = <Category>[].obs;
+  // var products = <Product>[].obs;
 
-@override
- void onInit(){
-super.onInit();
-fetchProfile();
-fetchHomeData();
- }
-
- Future<void> fetchHomeData()async{
-  try{
-    isLoading.value = true;
-    final data = await _service.fetchHomeData();
-      specials.assignAll(data["specials"] as List<Special>);
-      categories.assignAll(data["categories"] as List<Category>);
-      products.assignAll(data["products"] as List<Product>);
-    errorMessage.value = "";
-  }catch(e){
-    errorMessage.value = "Failed to load data";
-  }finally{
-    isLoading.value = false;
+  @override
+  void onInit() {
+    super.onInit();
+    fetchProfile();
+    fetchHomeData();
   }
- }
+
+  Future<void> fetchHomeData() async {
+    try {
+      isLoading.value = true;
+      final data = await _service.fetchHomeData();
+      // specials.assignAll(data["specials"] as List<Special>);
+      // categories.assignAll(data["categories"] as List<Category>);
+      // products.assignAll(data["products"] as List<Product>);
+      errorMessage.value = "";
+    } catch (e) {
+      errorMessage.value = "Failed to load data";
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
   // Dashboard state
 
-  // var categories = [
-  //   {"name": "សម្ល", "icon": Images.catDrink},
-  //   {"name": "បន្លែ", "icon": Images.catDrink},
-  //   {"name": "សាច់", "icon": Images.catDrink},
-  //   {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
-  //   {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
-  //   {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
-  //   {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
-  //   {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
-  // ].obs;
+  var categories = [
+    {"name": "សម្ល", "icon": Images.catDrink},
+    {"name": "បន្លែ", "icon": Images.catDrink},
+    {"name": "សាច់", "icon": Images.catDrink},
+    {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
+    {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
+    {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
+    {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
+    {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
+  ].obs;
 
-  // var specials = [
-  //   {"name": "Special Dish 1", "image": Images.catDrink},
-  //   {"name": "Special Dish 2", "image": Images.catDrink},
-  //   {"name": "Special Dish 3", "image": Images.catDrink},
-  // ].obs;
+  var specials = [
+    {"name": "Special Dish 1", "image": Images.catDrink},
+    {"name": "Special Dish 2", "image": Images.catDrink},
+    {"name": "Special Dish 3", "image": Images.catDrink},
+    {"name": "Special Dish 3", "image": Images.catDrink},
+    {"name": "Special Dish 3", "image": Images.catDrink},
+  ].obs;
 
-  // var products = [
-  //   {"name": "ទឹកត្រីមួយកែវ", "price": 2.0, "image": Images.catDrink},
-  //   {"name": "សាច់ក្រក", "price": 10.0, "image": Images.catDrink},
-  //   {"name": "កាហ្វេតែខែ", "price": 1.0, "image": Images.catDrink},
-  // ].obs;
+  var products = [
+    {"name": "ទឹកត្រីមួយកែវ", "price": 2.0, "image": Images.catDrink},
+    {"name": "សាច់ក្រក", "price": 10.0, "image": Images.catDrink},
+    {"name": "កាហ្វេតែខែ", "price": 1.0, "image": Images.catDrink},
+  ].obs;
+  var imageUrls = [
+    {"image": Images.catDrink},
+    {"image": Images.catDrink},
+    {"image": Images.catDrink},
+  ].obs;
 
   Future<void> fetchProfile() async {
     try {
@@ -84,8 +91,4 @@ fetchHomeData();
       Get.snackbar("Error", e.toString());
     }
   }
-
-
-
-
 }
