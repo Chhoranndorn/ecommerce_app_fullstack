@@ -88,16 +88,11 @@ class HomeView extends GetView<HomeController> {
                               ),
                             ),
                           ),
-
                           const SizedBox(width: 6),
-
-                          // ☎️ Phone icon
                           IconButton(
                             icon: const Icon(Icons.phone, color: Colors.white),
                             onPressed: () {},
                           ),
-
-                          // 💬 Chat icon
                           IconButton(
                             icon: const Icon(Icons.chat_bubble_outline,
                                 color: Colors.white),
@@ -105,7 +100,6 @@ class HomeView extends GetView<HomeController> {
                           ),
                         ],
                       ),
-                      // 🌟 Specials
                       const SizedBox(
                         height: 20,
                       ),
@@ -125,7 +119,6 @@ class HomeView extends GetView<HomeController> {
                         ],
                       ),
                       const SizedBox(height: 10),
-
                       Obx(() => SizedBox(
                             height: 140,
                             child: ListView.separated(
@@ -282,22 +275,32 @@ class HomeView extends GetView<HomeController> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                      child: Row(
                                         children: [
-                                          Text(
-                                            product['name'].toString(),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                product['name'].toString(),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Text(
+                                                "\$${product['price']}",
+                                                style: const TextStyle(
+                                                    color: Colors.green),
+                                              ),
+                                            ],
                                           ),
-                                          Text(
-                                            "\$${product['price']}",
-                                            style: const TextStyle(
-                                                color: Colors.green),
-                                          ),
+                                          Spacer(),
+                                          Icon(
+                                            Icons.add_shopping_cart,
+                                            color: Colors.green,
+                                          )
                                         ],
                                       ),
                                     ),
