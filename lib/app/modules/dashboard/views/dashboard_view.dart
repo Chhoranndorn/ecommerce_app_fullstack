@@ -11,19 +11,19 @@ import '../../favorites/views/favorites_view.dart';
 import '../../profile/views/profile_view.dart';
 
 class DashboardView extends GetView<DashboardController> {
-  const DashboardView({super.key});
+  DashboardView({super.key});
 
-  final List<Widget> pages = const [
+  final List<Widget> pages = [
     HomeView(),
-    CategoriesView(),
-    CartView(),
-    FavoritesView(),
-    ProfileView(),
+    const CategoriesView(),
+    const CartView(),
+    const FavoritesView(),
+    const ProfileView(),
   ];
 
   @override
   Widget build(BuildContext context) {
-        // ensure HomeController is available
+    // ensure HomeController is available
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => DashboardController());
     return Obx(() {
@@ -38,8 +38,10 @@ class DashboardView extends GetView<DashboardController> {
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "ទំព័រដើម"),
             BottomNavigationBarItem(icon: Icon(Icons.list), label: "ប្រភេទ"),
-            BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "កន្ត្រក"),
-            BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "ចូលចិត្ត"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart), label: "កន្ត្រក"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.favorite), label: "ចូលចិត្ត"),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "គណនី"),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/app/routes/app_pages.dart';
 import 'package:e_commerce_app/app/widgets/my_carousel.dart';
 import 'package:e_commerce_app/util/img_provider.dart';
 import 'package:flutter/material.dart';
@@ -6,12 +7,11 @@ import '../controllers/home_controller.dart';
 import '../../drawer/views/drawer_view.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({super.key});
+  HomeView({super.key});
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
     return Scaffold(
       key: _scaffoldKey,
       drawer: const DrawerView(),
@@ -44,47 +44,64 @@ class HomeView extends GetView<HomeController> {
                             onPressed: () {},
                           ),
                           Expanded(
-                            child: Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: Row(
-                                children: [
-                                  const SizedBox(width: 8),
-                                  const Icon(Icons.search, color: Colors.grey),
-                                  const SizedBox(width: 8),
-                                  // Search text
-                                  const Expanded(
-                                    child: TextField(
-                                      decoration: InputDecoration(
-                                        hintText: "ស្វែងរក...",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey),
-                                        border: InputBorder.none,
-                                        isDense: true,
-                                        contentPadding:
-                                            EdgeInsets.symmetric(vertical: 8),
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.SEARCH_PRODUCT);
+                              },
+                              child: Expanded(
+                                child: Container(
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(30),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                  const SizedBox(width: 6),
-                                  // “ទីតាំង” button inside search bar
-                                  Container(
-                                    margin: const EdgeInsets.only(right: 6),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 12, vertical: 6),
-                                    decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    child: const Text(
-                                      "ទីតាំង",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
+                                  child: Row(
+                                    children: [
+                                      const SizedBox(width: 8),
+                                      const Icon(Icons.search,
+                                          color: Colors.grey),
+                                      const SizedBox(width: 8),
+                                      // Search text
+                                      const Expanded(
+                                        child: TextField(
+                                          decoration: InputDecoration(
+                                            hintText: "ស្វែងរក...",
+                                            hintStyle:
+                                                TextStyle(color: Colors.grey),
+                                            border: InputBorder.none,
+                                            isDense: true,
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    vertical: 8),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 6),
+                                      // “ទីតាំង” button inside search bar
+                                      Container(
+                                        margin: const EdgeInsets.only(right: 6),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 6),
+                                        decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                        ),
+                                        child: const Text(
+                                          "ទីតាំង",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
                           ),
@@ -204,27 +221,41 @@ class HomeView extends GetView<HomeController> {
                               itemCount: controller.categories.length,
                               itemBuilder: (context, index) {
                                 final cat = controller.categories[index];
-                                return Column(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(right: 12),
-                                      padding: const EdgeInsets.all(12),
-                                      decoration: BoxDecoration(
-                                        color: Colors.green.shade50,
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      // child: CustomCachedImage(
-                                      //   imageUrl: cat['icon'].toString(),
-                                      child: Img.widget(
-                                        cat['icon'].toString(),
-                                        width: 40,
-                                        height: 40,
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
+                                return GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(
+                                      Routes.CATEGORY_DETAIL_VIEW,
+                                      // arguments: cat['name'].toString(),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(right: 12),
+                                          padding: const EdgeInsets.all(12),
+                                          decoration: BoxDecoration(
+                                            color: Colors.green.shade50,
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                          ),
+                                          // child: CustomCachedImage(
+                                          //   imageUrl: cat['icon'].toString(),
+                                          child: Img.widget(
+                                            cat['icon'].toString(),
+                                            width: 40,
+                                            height: 40,
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 6),
+                                        Text(cat['name'].toString()),
+                                      ],
                                     ),
-                                    const SizedBox(height: 6),
-                                    Text(cat['name'].toString()),
-                                  ],
+                                  ),
                                 );
                               },
                             ),
@@ -244,67 +275,74 @@ class HomeView extends GetView<HomeController> {
                             itemBuilder: (context, index) {
                               final product = controller.products[index];
                               print("product_image: ${product['image']}");
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(16),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.black12,
-                                      blurRadius: 6,
-                                      offset: Offset(0, 4),
-                                    )
-                                  ],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            const BorderRadius.vertical(
-                                                top: Radius.circular(16)),
-                                        // child: Image.network(
-                                        child: Img.widget(
-                                          product['image']
-                                              .toString(), // ✅ NetworkImage
-                                          fit: BoxFit.cover,
-                                          width: double.infinity,
+                              return GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.PRODUCT_DETAIL);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(16),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.black12,
+                                        blurRadius: 6,
+                                        offset: Offset(0, 4),
+                                      )
+                                    ],
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              const BorderRadius.vertical(
+                                                  top: Radius.circular(16)),
+                                          // child: Image.network(
+                                          child: Img.widget(
+                                            product['image']
+                                                .toString(), // ✅ NetworkImage
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Row(
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                product['name'].toString(),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              Text(
-                                                "\$${product['price']}",
-                                                style: const TextStyle(
-                                                    color: Colors.green),
-                                              ),
-                                            ],
-                                          ),
-                                          Spacer(),
-                                          Icon(
-                                            Icons.add_shopping_cart,
-                                            color: Colors.green,
-                                          )
-                                        ],
+                                      Padding(
+                                        padding: const EdgeInsets.all(8),
+                                        child: Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  product['name'].toString(),
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text(
+                                                  "\$${product['price']}",
+                                                  style: const TextStyle(
+                                                      color: Colors.green),
+                                                ),
+                                              ],
+                                            ),
+                                            Spacer(),
+                                            Icon(
+                                              Icons.add_shopping_cart,
+                                              color: Colors.green,
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               );
                             },

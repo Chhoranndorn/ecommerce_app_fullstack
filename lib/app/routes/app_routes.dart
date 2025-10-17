@@ -12,6 +12,9 @@ abstract class Routes {
   static const FAVORITES = _Paths.FAVORITES;
   static const PROFILE = _Paths.PROFILE;
   static const DRAWER = _Paths.DRAWER;
+  static const CATEGORY_DETAIL_VIEW = _Paths.CATEGORY_DETAIL_VIEW;
+  static const SEARCH_PRODUCT = _Paths.SEARCH_PRODUCT;
+  static const PRODUCT_DETAIL = _Paths.PRODUCT_DETAIL;
 }
 
 abstract class _Paths {
@@ -25,4 +28,7 @@ abstract class _Paths {
   static const FAVORITES = '/favorites';
   static const PROFILE = '/profile';
   static const DRAWER = '/drawer';
+  static const CATEGORY_DETAIL_VIEW = '/category-detail-view';
+  static const SEARCH_PRODUCT = '/search-product';
+  static const PRODUCT_DETAIL = '/product-detail';
 }
