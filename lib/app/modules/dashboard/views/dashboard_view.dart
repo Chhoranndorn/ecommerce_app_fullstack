@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/app/modules/cart/controllers/cart_controller.dart';
 import 'package:e_commerce_app/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,6 +27,7 @@ class DashboardView extends GetView<DashboardController> {
     // ensure HomeController is available
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => DashboardController());
+    Get.lazyPut(() => CartController());
     return Obx(() {
       return Scaffold(
         body: pages[controller.selectedIndex.value],

@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/app/routes/app_pages.dart';
 import 'package:e_commerce_app/util/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,7 +37,7 @@ class DrawerView extends GetView<AppDrawerController> {
                 ],
               ),
             ),
-            _buildMenuItem(Icons.home, "ទំព័រដើម", () {
+            _buildMenuItem(Icons.home, "home", () {
               Get.back();
               controller.selectMenu("home");
               Get.toNamed('/dashboard');
@@ -46,9 +47,14 @@ class DrawerView extends GetView<AppDrawerController> {
               controller.selectMenu("categories");
               Get.toNamed('/categories');
             }),
-            _buildMenuItem(Icons.card_giftcard, "ប្រូម៉ូសិន", () {}),
+            _buildMenuItem(Icons.badge_sharp, "wallet", () {
+              Get.toNamed(Routes.WALLET);
+            }),
+            _buildMenuItem(Icons.card_giftcard, "promotion", () {}),
             _buildMenuItem(Icons.notifications, "ការជូនដំណឹង", () {}),
-            _buildMenuItem(Icons.settings, "ការកំណត់", () {}),
+            _buildMenuItem(Icons.settings, "ការកំណត់", () {
+              Get.toNamed(Routes.SETTING);
+            }),
             _buildMenuItem(Icons.info, "អំពីកម្មវិធី", () {}),
             _buildMenuItem(Icons.person, "លិខិតអត្តសញ្ញាណ", () {}),
             _buildMenuItem(Icons.logout, "ចាកចេញ", () {
