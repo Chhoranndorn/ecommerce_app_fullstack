@@ -23,6 +23,9 @@ abstract class Routes {
   static const WALLET = _Paths.WALLET;
   static const SETTING = _Paths.SETTING;
   static const CHECKOUT = _Paths.CHECKOUT;
+  static const QUOTATION = _Paths.QUOTATION;
+  static const ADD_ADDRESS = _Paths.ADD_ADDRESS;
+  static const ORDER_SUCCESS = _Paths.ORDER_SUCCESS;
 }
 
 abstract class _Paths {
@@ -47,4 +50,7 @@ abstract class _Paths {
   static const WALLET = '/wallet';
   static const SETTING = '/setting';
   static const CHECKOUT = '/checkout';
+  static const QUOTATION = '/quotation';
+  static const ADD_ADDRESS = '/add-address';
+  static const ORDER_SUCCESS = '/order-success';
 }

@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/add_address/bindings/add_address_binding.dart';
+import '../modules/add_address/views/add_address_view.dart';
 import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
 import '../modules/categories/bindings/categories_binding.dart';
@@ -22,12 +24,16 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
+import '../modules/order_success/bindings/order_success_binding.dart';
+import '../modules/order_success/views/order_success_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/product_detail/bindings/product_detail_binding.dart';
 import '../modules/product_detail/views/product_detail_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/quotation/bindings/quotation_binding.dart';
+import '../modules/quotation/views/quotation_view.dart';
 import '../modules/search_product/bindings/search_product_binding.dart';
 import '../modules/search_product/views/search_product_view.dart';
 import '../modules/setting/bindings/setting_binding.dart';
@@ -139,6 +145,21 @@ class AppPages {
       name: _Paths.CHECKOUT,
       page: () => const CheckoutView(),
       binding: CheckoutBinding(),
+    ),
+    GetPage(
+      name: _Paths.QUOTATION,
+      page: () => const QuotationView(),
+      binding: QuotationBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_ADDRESS,
+      page: () => const AddAddressView(),
+      binding: AddAddressBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_SUCCESS,
+      page: () => const OrderSuccessView(),
+      binding: OrderSuccessBinding(),
     ),
   ];
 }

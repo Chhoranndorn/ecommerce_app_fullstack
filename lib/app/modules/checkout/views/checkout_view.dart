@@ -1,4 +1,8 @@
 import 'package:e_commerce_app/app/modules/checkout/controllers/checkout_controller.dart';
+import 'package:e_commerce_app/app/routes/app_pages.dart';
+import 'package:e_commerce_app/app/widgets/coupon_dialog.dart';
+import 'package:e_commerce_app/app/widgets/select_address_dialog_widget.dart';
+import 'package:e_commerce_app/app/widgets/select_delivery_type_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,6 +31,8 @@ class CheckoutView extends GetView<CheckoutController> {
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
+          _buildSelectDeliveryType(),
+          SizedBox(height: 16),
           _buildDeliveryAddress(),
           SizedBox(height: 16),
           _buildOrderSummary(),
@@ -80,6 +86,51 @@ class CheckoutView extends GetView<CheckoutController> {
     );
   }
 
+  Widget _buildSelectDeliveryType() {
+    return Container(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Select_Delivery_Type'.tr,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Get.dialog(SelectDeliveryTypeDialog());
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    'Delivery'.tr,
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Text(
+            'Street 336, Toul Kork, Phnom Penh.',
+            style: TextStyle(fontSize: 15, color: Colors.grey[700]),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildDeliveryAddress() {
     return Container(
       padding: EdgeInsets.all(16),
@@ -97,15 +148,20 @@ class CheckoutView extends GetView<CheckoutController> {
                 'delivery_address_title'.tr,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Color(0xFF6A932D),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  'change_address'.tr,
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+              GestureDetector(
+                onTap: () {
+                  Get.dialog(SelectAddressDialog());
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF6A932D),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    'change_address'.tr,
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
                 ),
               ),
             ],
@@ -204,26 +260,26 @@ class CheckoutView extends GetView<CheckoutController> {
   }
 
   Widget _buildPromoCode() {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Icon(Icons.local_offer_outlined, color: Colors.grey[600]),
-          SizedBox(width: 12),
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'enter_promo_code'.tr,
-                border: InputBorder.none,
-                isDense: true,
-              ),
-            ),
-          ),
-        ],
+    final controller = Get.find<CheckoutController>();
+    return GestureDetector(
+      onTap: () {
+        Get.dialog(
+            CouponDialog(couponController: controller.couponTextController));
+      },
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.local_offer_outlined, color: Colors.grey[600]),
+            SizedBox(width: 12),
+            Text("enter_promo_code".tr,
+                style: TextStyle(color: Colors.grey[700], fontSize: 16)),
+          ],
+        ),
       ),
     );
   }
@@ -285,6 +341,10 @@ class CheckoutView extends GetView<CheckoutController> {
                 icon: Icons.account_balance,
                 iconColor: Colors.blue[900],
               ),
+              // --- THIS IS THE NEW CONDITIONAL LOGIC ---
+              if (controller.selectedPaymentMethod.value == 'aba_bank')
+                _buildUploadSlipSection(),
+              // --- END OF NEW LOGIC ---
             ],
           )),
     );
@@ -313,6 +373,68 @@ class CheckoutView extends GetView<CheckoutController> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Icon(icon, color: iconColor ?? Colors.grey),
+      ),
+    );
+  }
+
+  /// --- THIS IS THE NEW WIDGET FOR THE UPLOAD SLIP UI ---
+  Widget _buildUploadSlipSection() {
+    return Padding(
+      // Add horizontal padding to match the radio tiles
+      padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // You can use your existing _buildSectionHeader
+          _buildSectionHeader(
+              'បញ្ជាក់​ការ​ផ្ទេរ​ប្រាក់'.tr), // "Confirm Transfer"
+          SizedBox(height: 8),
+          GestureDetector(
+            onTap: controller.pickImage, // Calls the method in your controller
+            child: Obx(() {
+              if (controller.uploadedImage.value == null) {
+                // --- Show the upload box ---
+                return Container(
+                  height: 250,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.cloud_upload_outlined,
+                        size: 60,
+                        color: Colors.grey[600],
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        'upload_your_slip'.tr,
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                // --- Show the selected image ---
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.file(
+                    controller.uploadedImage.value!,
+                    width: double.infinity,
+                    height: 250,
+                    fit: BoxFit.cover,
+                  ),
+                );
+              }
+            }),
+          ),
+        ],
       ),
     );
   }

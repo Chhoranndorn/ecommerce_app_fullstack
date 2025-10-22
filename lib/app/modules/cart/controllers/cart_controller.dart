@@ -1,6 +1,8 @@
 import 'package:e_commerce_app/app/data/providers/models/cart_model.dart';
 import 'package:e_commerce_app/app/routes/app_pages.dart';
+import 'package:e_commerce_app/app/widgets/custom_confirmdialog_widget.dart';
 import 'package:e_commerce_app/util/images.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -65,10 +67,37 @@ class CartController extends GetxController {
     Get.offAllNamed(Routes.DASHBOARD);
   }
 
+  void generatequotation() {
+    Get.toNamed(Routes.QUOTATION);
+  }
+
   void checkout() {
     // Navigate to the checkout or payment screen
     // Get.snackbar('Checkout', 'Navigating to payment...');
     Get.toNamed(Routes.CHECKOUT);
     // Example: Get.toNamed(Routes.CHECKOUT);
   }
+
+  // void showLoginRequiredDialog() {
+  //   Get.dialog(
+  //     CustomConfirmDialog(
+  //       // Title: "Please Log In"
+  //       title: "សូមចូលគណនី",
+  //       // Message: "Please log in before you can order"
+  //       message: "សូមចូលគណនីមុនពេលអ្នកអាចបញ្ជាទិញបាន",
+  //       // Cancel Text: "Cancel"
+  //       cancelText: "បដិសេធ",
+  //       // Confirm Text: "Log In"
+  //       confirmText: "ចូលគណនី",
+  //       onConfirm: () {
+  //         // 1. Close the dialog
+  //         Get.back();
+  //         // 2. Go to the login page
+  //         Get.toNamed(Routes.SIGNIN);
+  //       },
+  //     ),
+  //     // This prevents the user from closing the dialog by tapping outside it
+  //     barrierDismissible: false,
+  //   );
+  // }
 }

@@ -1,5 +1,5 @@
 import 'package:e_commerce_app/app/routes/app_pages.dart';
-import 'package:e_commerce_app/app/widgets/my_carousel.dart';
+import 'package:e_commerce_app/app/widgets/my_carousel_widget.dart';
 import 'package:e_commerce_app/util/img_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

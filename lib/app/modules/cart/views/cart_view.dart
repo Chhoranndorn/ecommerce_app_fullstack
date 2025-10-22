@@ -1,5 +1,8 @@
 import 'package:e_commerce_app/app/data/providers/models/cart_model.dart';
+import 'package:e_commerce_app/app/modules/auth/controllers/auth_controller.dart';
 import 'package:e_commerce_app/app/modules/cart/controllers/cart_controller.dart';
+import 'package:e_commerce_app/app/routes/app_pages.dart';
+import 'package:e_commerce_app/app/widgets/custom_confirmdialog_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -171,6 +174,7 @@ class CartView extends GetView<CartController> {
 
   // Helper for the bottom checkout section
   Widget _buildCheckoutSection() {
+    // final authController = Get.find<AuthController>();
     return Container(
       padding: EdgeInsets.fromLTRB(16, 16, 16, 32), // Padding for safe area
       decoration: BoxDecoration(
@@ -227,9 +231,9 @@ class CartView extends GetView<CartController> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  onPressed: controller.continueShopping,
+                  onPressed: controller.generatequotation,
                   child: Text(
-                    'continue_shopping'.tr,
+                    'quotation'.tr,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -246,7 +250,13 @@ class CartView extends GetView<CartController> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  onPressed: controller.checkout,
+                  onPressed: () {
+                    // if (authController.isLoggedIn.value) {
+                    controller.checkout();
+                    // } else {
+                    //   showLoginRequiredDialog();
+                    // }
+                  },
                   child: Text(
                     'checkout'.tr,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -260,3 +270,27 @@ class CartView extends GetView<CartController> {
     );
   }
 }
+
+// Helper function to show the dialog
+// void showLoginRequiredDialog() {
+//   Get.dialog(
+//     CustomConfirmDialog(
+//       // Title: "Please Log In"
+//       title: "សូមចូលគណនី",
+//       // Message: "Please log in before you can order"
+//       message: "សូមចូលគណនីមុនពេលអ្នកអាចបញ្ជាទិញបាន",
+//       // Cancel Text: "Cancel"
+//       cancelText: "បដិសេធ",
+//       // Confirm Text: "Log In"
+//       confirmText: "ចូលគណនី",
+//       onConfirm: () {
+//         // 1. Close the dialog
+//         Get.back();
+//         // 2. Go to the login page
+//         Get.toNamed(Routes.SIGNIN);
+//       },
+//     ),
+//     // This prevents the user from closing the dialog by tapping outside it
+//     barrierDismissible: false,
+//   );
+// }
