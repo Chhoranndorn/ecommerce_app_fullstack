@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class FavoritesController extends GetxController {
-  //TODO: Implement FavoritesController
+class OrderHistoryController extends GetxController {
+  //TODO: Implement OrderHistoryController
 
   final count = 0.obs;
   @override

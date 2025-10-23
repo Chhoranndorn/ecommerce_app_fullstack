@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/aboutus/bindings/aboutus_binding.dart';
+import '../modules/aboutus/views/aboutus_view.dart';
 import '../modules/add_address/bindings/add_address_binding.dart';
 import '../modules/add_address/views/add_address_view.dart';
 import '../modules/cart/bindings/cart_binding.dart';
@@ -14,16 +16,22 @@ import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/drawer/bindings/drawer_binding.dart';
 import '../modules/drawer/views/drawer_view.dart';
-import '../modules/favorites/bindings/favorites_binding.dart';
-import '../modules/favorites/views/favorites_view.dart';
+import '../modules/edit_profile/bindings/edit_profile_binding.dart';
+import '../modules/edit_profile/views/edit_profile_view.dart';
+import '../modules/favorite/bindings/favorite_binding.dart';
+import '../modules/favorite/views/favorite_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/language/bindings/language_binding.dart';
 import '../modules/language/views/language_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/notification/bindings/notification_binding.dart';
+import '../modules/notification/views/notification_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
+import '../modules/order_history/bindings/order_history_binding.dart';
+import '../modules/order_history/views/order_history_view.dart';
 import '../modules/order_success/bindings/order_success_binding.dart';
 import '../modules/order_success/views/order_success_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
@@ -32,6 +40,10 @@ import '../modules/product_detail/bindings/product_detail_binding.dart';
 import '../modules/product_detail/views/product_detail_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/promotion/bindings/promotion_binding.dart';
+import '../modules/promotion/views/promotion_view.dart';
+import '../modules/promotion_detail/bindings/promotion_detail_binding.dart';
+import '../modules/promotion_detail/views/promotion_detail_view.dart';
 import '../modules/quotation/bindings/quotation_binding.dart';
 import '../modules/quotation/views/quotation_view.dart';
 import '../modules/search_product/bindings/search_product_binding.dart';
@@ -78,8 +90,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.FAVORITES,
-      page: () => const FavoritesView(),
-      binding: FavoritesBinding(),
+      page: () => const FavoriteView(),
+      binding: FavoriteBinding(),
     ),
     GetPage(
       name: _Paths.PROFILE,
@@ -160,6 +172,41 @@ class AppPages {
       name: _Paths.ORDER_SUCCESS,
       page: () => const OrderSuccessView(),
       binding: OrderSuccessBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROMOTION,
+      page: () => const PromotionView(),
+      binding: PromotionBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROMOTION_DETAIL,
+      page: () => const PromotionDetailView(),
+      binding: PromotionDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION,
+      page: () => const NotificationView(),
+      binding: NotificationBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAVORITE,
+      page: () => const FavoriteView(),
+      binding: FavoriteBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_HISTORY,
+      page: () => const OrderHistoryView(),
+      binding: OrderHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.ABOUTUS,
+      page: () => const AboutUsView(),
+      binding: AboutusBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_PROFILE,
+      page: () => const EditProfileView(),
+      binding: EditProfileBinding(),
     ),
   ];
 }

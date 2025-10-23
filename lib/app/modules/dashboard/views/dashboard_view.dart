@@ -1,5 +1,7 @@
 import 'package:e_commerce_app/app/modules/cart/controllers/cart_controller.dart';
+import 'package:e_commerce_app/app/modules/favorite/views/favorite_view.dart';
 import 'package:e_commerce_app/app/modules/home/controllers/home_controller.dart';
+import 'package:e_commerce_app/app/modules/order_history/views/order_history_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/dashboard_controller.dart';
@@ -8,7 +10,6 @@ import '../controllers/dashboard_controller.dart';
 import '../../home/views/home_view.dart';
 import '../../categories/views/categories_view.dart';
 import '../../cart/views/cart_view.dart';
-import '../../favorites/views/favorites_view.dart';
 import '../../profile/views/profile_view.dart';
 
 class DashboardView extends GetView<DashboardController> {
@@ -17,8 +18,8 @@ class DashboardView extends GetView<DashboardController> {
   final List<Widget> pages = [
     HomeView(),
     const CategoriesView(),
-    const CartView(),
-    const FavoritesView(),
+    const FavoriteView(),
+    const OrderHistoryView(),
     const ProfileView(),
   ];
 
@@ -41,9 +42,9 @@ class DashboardView extends GetView<DashboardController> {
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "ទំព័រដើម"),
             BottomNavigationBarItem(icon: Icon(Icons.list), label: "ប្រភេទ"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart), label: "កន្ត្រក"),
-            BottomNavigationBarItem(
                 icon: Icon(Icons.favorite), label: "ចូលចិត្ត"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart), label: "ប្រវត្ដិបញ្ជាទិញ"),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "គណនី"),
           ],
         ),

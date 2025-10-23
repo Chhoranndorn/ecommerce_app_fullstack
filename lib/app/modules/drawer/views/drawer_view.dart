@@ -50,12 +50,18 @@ class DrawerView extends GetView<AppDrawerController> {
             _buildMenuItem(Icons.badge_sharp, "wallet", () {
               Get.toNamed(Routes.WALLET);
             }),
-            _buildMenuItem(Icons.card_giftcard, "promotion", () {}),
-            _buildMenuItem(Icons.notifications, "ការជូនដំណឹង", () {}),
+            _buildMenuItem(Icons.card_giftcard, "promotion", () {
+              Get.toNamed(Routes.PROMOTION);
+            }),
+            _buildMenuItem(Icons.notifications, "ការជូនដំណឹង", () {
+              Get.toNamed(Routes.NOTIFICATION);
+            }),
             _buildMenuItem(Icons.settings, "ការកំណត់", () {
               Get.toNamed(Routes.SETTING);
             }),
-            _buildMenuItem(Icons.info, "អំពីកម្មវិធី", () {}),
+            _buildMenuItem(Icons.info, "អំពីកម្មវិធី", () {
+              Get.toNamed(Routes.ABOUTUS);
+            }),
             _buildMenuItem(Icons.person, "លិខិតអត្តសញ្ញាណ", () {}),
             _buildMenuItem(Icons.logout, "ចាកចេញ", () {
               Get.back();

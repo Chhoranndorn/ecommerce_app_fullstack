@@ -26,6 +26,13 @@ abstract class Routes {
   static const QUOTATION = _Paths.QUOTATION;
   static const ADD_ADDRESS = _Paths.ADD_ADDRESS;
   static const ORDER_SUCCESS = _Paths.ORDER_SUCCESS;
+  static const PROMOTION = _Paths.PROMOTION;
+  static const PROMOTION_DETAIL = _Paths.PROMOTION_DETAIL;
+  static const NOTIFICATION = _Paths.NOTIFICATION;
+  static const FAVORITE = _Paths.FAVORITE;
+  static const ORDER_HISTORY = _Paths.ORDER_HISTORY;
+  static const ABOUTUS = _Paths.ABOUTUS;
+  static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
 }
 
 abstract class _Paths {
@@ -53,4 +60,11 @@ abstract class _Paths {
   static const QUOTATION = '/quotation';
   static const ADD_ADDRESS = '/add-address';
   static const ORDER_SUCCESS = '/order-success';
+  static const PROMOTION = '/promotion';
+  static const PROMOTION_DETAIL = '/promotion-detail';
+  static const NOTIFICATION = '/notification';
+  static const FAVORITE = '/favorite';
+  static const ORDER_HISTORY = '/order-history';
+  static const ABOUTUS = '/aboutus';
+  static const EDIT_PROFILE = '/edit-profile';
 }
