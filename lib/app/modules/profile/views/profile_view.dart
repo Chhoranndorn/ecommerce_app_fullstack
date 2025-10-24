@@ -134,7 +134,9 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     // "Transaction" Button
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(Routes.WALLET_HISTORY);
+                      },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 4),
@@ -277,6 +279,11 @@ class ProfileView extends GetView<ProfileController> {
           _buildMenuItem(
               icon: Icons.g_translate_outlined,
               text: 'ជ្រើសរើស​ភាសា'), // Choose Language
+          _buildMenuItem(
+            icon: Icons.feedback,
+            text: 'feedback', // Logout
+            onTap: () => Get.toNamed(Routes.FEEDBACK),
+          ),
           const Divider(height: 20),
           _buildMenuItem(
               icon: Icons.delete_outline,
@@ -286,6 +293,7 @@ class ProfileView extends GetView<ProfileController> {
               icon: Icons.logout,
               text: 'ចាកចេញ', // Logout
               color: Colors.red),
+
           const SizedBox(height: 20),
         ],
       ),
@@ -293,14 +301,14 @@ class ProfileView extends GetView<ProfileController> {
   }
 
   /// Helper for each menu item row
-  Widget _buildMenuItem(
-      {required IconData icon,
-      required String text,
-      Color color = Colors.black}) {
+  Widget _buildMenuItem({
+    required IconData icon,
+    required String text,
+    Color color = Colors.black,
+    VoidCallback? onTap,
+  }) {
     return InkWell(
-      onTap: () {
-        // Handle navigation
-      },
+      onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0),
         child: Row(

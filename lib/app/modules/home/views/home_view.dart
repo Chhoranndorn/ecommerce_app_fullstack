@@ -43,68 +43,6 @@ class HomeView extends GetView<HomeController> {
                                 color: Colors.white),
                             onPressed: () {},
                           ),
-                          // Expanded(
-                          //   child: GestureDetector(
-                          //     onTap: () {
-                          //       Get.toNamed(Routes.SEARCH_PRODUCT);
-                          //     },
-                          //     child: Expanded(
-                          //       child: Container(
-                          //         height: 40,
-                          //         decoration: BoxDecoration(
-                          //           color: Colors.white,
-                          //           borderRadius: BorderRadius.circular(30),
-                          //           boxShadow: [
-                          //             BoxShadow(
-                          //               color: Colors.grey.withOpacity(0.1),
-                          //               spreadRadius: 1,
-                          //               blurRadius: 5,
-                          //             ),
-                          //           ],
-                          //         ),
-                          //         child: Row(
-                          //           children: [
-                          //             const SizedBox(width: 8),
-                          //             const Icon(Icons.search,
-                          //                 color: Colors.grey),
-                          //             const SizedBox(width: 8),
-                          //             // Search text
-                          //             const Expanded(
-                          //               child: TextField(
-                          //                 decoration: InputDecoration(
-                          //                   hintText: "ស្វែងរក...",
-                          //                   hintStyle:
-                          //                       TextStyle(color: Colors.grey),
-                          //                   border: InputBorder.none,
-                          //                   isDense: true,
-                          //                   contentPadding:
-                          //                       EdgeInsets.symmetric(
-                          //                           vertical: 8),
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //             const SizedBox(width: 6),
-                          //             // “ទីតាំង” button inside search bar
-                          //             Container(
-                          //               margin: const EdgeInsets.only(right: 6),
-                          //               padding: const EdgeInsets.symmetric(
-                          //                   horizontal: 12, vertical: 6),
-                          //               decoration: BoxDecoration(
-                          //                 color: Colors.green,
-                          //                 borderRadius:
-                          //                     BorderRadius.circular(30),
-                          //               ),
-                          //               child: const Text(
-                          //                 "ទីតាំង",
-                          //                 style: TextStyle(color: Colors.white),
-                          //               ),
-                          //             ),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
@@ -153,7 +91,6 @@ class HomeView extends GetView<HomeController> {
                               ),
                             ),
                           ),
-
                           const SizedBox(width: 6),
                           IconButton(
                             icon: const Icon(Icons.phone, color: Colors.white),

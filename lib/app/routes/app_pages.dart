@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import '../modules/Feedback/bindings/feedback_binding.dart';
+import '../modules/Feedback/views/feedback_view.dart';
+import '../modules/WalletHistory/bindings/wallet_history_binding.dart';
+import '../modules/WalletHistory/views/wallet_history_view.dart';
 import '../modules/aboutus/bindings/aboutus_binding.dart';
 import '../modules/aboutus/views/aboutus_view.dart';
 import '../modules/add_address/bindings/add_address_binding.dart';
@@ -18,6 +22,8 @@ import '../modules/drawer/bindings/drawer_binding.dart';
 import '../modules/drawer/views/drawer_view.dart';
 import '../modules/edit_profile/bindings/edit_profile_binding.dart';
 import '../modules/edit_profile/views/edit_profile_view.dart';
+import '../modules/edit_profile_detail/bindings/edit_profile_detail_binding.dart';
+import '../modules/edit_profile_detail/views/edit_profile_detail_view.dart';
 import '../modules/favorite/bindings/favorite_binding.dart';
 import '../modules/favorite/views/favorite_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -207,6 +213,21 @@ class AppPages {
       name: _Paths.EDIT_PROFILE,
       page: () => const EditProfileView(),
       binding: EditProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_PROFILE_DETAIL,
+      page: () => const EditProfileDetailView(),
+      binding: EditProfileDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.WALLET_HISTORY,
+      page: () => const WalletHistoryView(),
+      binding: WalletHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.FEEDBACK,
+      page: () => const FeedbackView(),
+      binding: FeedbackBinding(),
     ),
   ];
 }

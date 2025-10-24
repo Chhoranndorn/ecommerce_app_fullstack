@@ -87,18 +87,18 @@ class AddAddressView extends GetView<AddAddressController> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: LatLng(11.5721, 104.9142), // Centered on Toul Kork
-                zoom: 15,
-              ),
-              myLocationButtonEnabled: false,
-              zoomControlsEnabled: false,
-              // Uncomment this if you want to update the controller as the map moves
-              // onCameraMove: (position) {
-              //   controller.updatePinPosition(position.target);
-              // },
-            ),
+            // child: GoogleMap(
+            //   initialCameraPosition: CameraPosition(
+            //     target: LatLng(11.5721, 104.9142), // Centered on Toul Kork
+            //     zoom: 15,
+            //   ),
+            //   myLocationButtonEnabled: false,
+            //   zoomControlsEnabled: false,
+            //   // Uncomment this if you want to update the controller as the map moves
+            //   // onCameraMove: (position) {
+            //   //   controller.updatePinPosition(position.target);
+            //   // },
+            // ),
           ),
           // The centered red pin
           Center(

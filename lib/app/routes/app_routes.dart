@@ -33,6 +33,9 @@ abstract class Routes {
   static const ORDER_HISTORY = _Paths.ORDER_HISTORY;
   static const ABOUTUS = _Paths.ABOUTUS;
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const EDIT_PROFILE_DETAIL = _Paths.EDIT_PROFILE_DETAIL;
+  static const WALLET_HISTORY = _Paths.WALLET_HISTORY;
+  static const FEEDBACK = _Paths.FEEDBACK;
 }
 
 abstract class _Paths {
@@ -67,4 +70,7 @@ abstract class _Paths {
   static const ORDER_HISTORY = '/order-history';
   static const ABOUTUS = '/aboutus';
   static const EDIT_PROFILE = '/edit-profile';
+  static const EDIT_PROFILE_DETAIL = '/edit-profile-detail';
+  static const WALLET_HISTORY = '/wallet-history';
+  static const FEEDBACK = '/feedback';
 }

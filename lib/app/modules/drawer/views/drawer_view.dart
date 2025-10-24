@@ -43,9 +43,9 @@ class DrawerView extends GetView<AppDrawerController> {
               Get.toNamed('/dashboard');
             }),
             _buildMenuItem(Icons.shopping_cart, "ប្រភេទផលិតផល", () {
-              Get.back();
-              controller.selectMenu("categories");
-              Get.toNamed('/categories');
+              // Get.back();
+              // controller.selectMenu("categories");
+              Get.toNamed(Routes.CATEGORIES);
             }),
             _buildMenuItem(Icons.badge_sharp, "wallet", () {
               Get.toNamed(Routes.WALLET);

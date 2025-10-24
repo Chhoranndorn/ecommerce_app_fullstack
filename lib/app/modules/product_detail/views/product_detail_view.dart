@@ -1,4 +1,7 @@
+import 'package:e_commerce_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 // --- MOCK DATA ---
 // Replace this with your actual product data from your controller or API.
@@ -269,7 +272,9 @@ class _ProductDetailViewState extends State<ProductDetailView> {
             ],
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(Routes.CART);
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green,
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),

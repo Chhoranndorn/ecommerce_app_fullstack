@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +15,7 @@ class EditProfileView extends GetView<EditProfileController> {
     return Scaffold(
       // 1. Light purple background
       backgroundColor: const Color(0xFFF3F0F8),
-      
+
       // 2. AppBar
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -32,47 +33,46 @@ class EditProfileView extends GetView<EditProfileController> {
         ),
         centerTitle: true,
       ),
-      
+
       // 3. Body
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             // 4. Header Row with Title and Edit Button
-            Obx(
-              () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'ព័ត៌មានទំនាក់ទំនង', // "Contact Information"
+            // Remove Obx here
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'ព័ត៌មានទំនាក់ទំនង', // "Contact Information"
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed(Routes.EDIT_PROFILE_DETAIL);
+                  },
+                  child: Text(
+                    'កែប្រែ', // "Edit"
                     style: TextStyle(
-                      fontSize: 18.0,
+                      color: primaryGreen,
                       fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      controller.toggleEdit();
-                    },
-                    child: Text(
-                      controller.isEditing.value
-                          ? 'រក្សាទុក' // "Save"
-                          : 'កែប្រែ', // "Edit"
-                      style: TextStyle(
-                        color: primaryGreen,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
+
             const SizedBox(height: 16.0),
 
             // 5. Form Fields
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12.0),
@@ -122,7 +122,7 @@ class EditProfileView extends GetView<EditProfileController> {
           borderSide: BorderSide(color: const Color(0xFF6A994E), width: 2.0),
         ),
         // When read-only, remove the underline
-        border: readOnly ? InputBorder.none : null, 
+        border: readOnly ? InputBorder.none : null,
       ),
     );
   }
