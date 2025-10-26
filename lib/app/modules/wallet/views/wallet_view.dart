@@ -7,115 +7,129 @@ class WalletView extends GetView<WalletController> {
 
   @override
   Widget build(BuildContext context) {
-    // This provides the light grey background
     return Scaffold(
-      backgroundColor: Color(0xFFF9F9F9),
+      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Get.back(),
         ),
-        title: Text(
-          'wallet_title'.tr,
+        title: const Text(
+          'កាបូប', // Wallet
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
+            fontSize: 18,
           ),
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(
-              backgroundColor: Colors.blue,
-              radius: 18,
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                icon: Icon(Icons.send_rounded, color: Colors.white, size: 18),
-                onPressed: controller.sendMoney,
+          TextButton(
+            onPressed: () {},
+            child: const Text(
+              'ទំនាក់ទំនងជួយ', // Help/Support
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 14,
               ),
             ),
-          )
+          ),
+          IconButton(
+            icon: const Icon(Icons.chat_bubble_outline, color: Color(0xFF84C341)),
+            onPressed: () {},
+          ),
+          const SizedBox(width: 8),
         ],
       ),
       body: Stack(
         children: [
           ListView(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             children: [
-              // --- Balance Section ---
-              _buildSectionHeader('balance_amount'.tr),
-              Obx(() => Text(
-                    controller.isBalanceVisible.value ? '0 \$' : '• • • \$',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  )),
-              Divider(height: 30),
+              // Balance Section
+              _buildSectionHeader('ថ្លៃទំនិញសរុប'), // Total amount
+              const SizedBox(height: 8),
+              const Text(
+                '0 \$',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black87,
+                ),
+              ),
+              const Divider(height: 30),
 
-              // --- My Wallet Section ---
-              _buildSectionHeader('my_wallet'.tr),
-              SizedBox(height: 8),
+              // Payment Method Section
+              _buildSectionHeader('ការបង់ប្រាក់'), // Payment
+              const SizedBox(height: 12),
               _buildMyWalletCard(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-              // --- Bank Payment Section ---
-              _buildSectionHeader('bank_payment'.tr),
-              SizedBox(height: 8),
+              // Bank Payment Section
+              _buildSectionHeader('ការទូទាត់តាមធនាគារ'), // Bank payment
+              const SizedBox(height: 12),
               _buildBankPaymentCard(),
 
-              // Add padding to the bottom so it doesn't hide behind the button
-              SizedBox(height: 120),
+              const SizedBox(height: 120),
             ],
           ),
 
-          // --- Bottom Buttons ---
+          // Bottom Button
           _buildBottomButtons(),
         ],
       ),
     );
   }
 
-  // Helper for "Add Money" and "Home" buttons
   Widget _buildBottomButtons() {
     return Positioned(
       bottom: 16,
       left: 16,
       right: 16,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          // "Add Money" Button
           Expanded(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF6A932D), // Green
+                backgroundColor: const Color(0xFF84C341),
                 foregroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
+                elevation: 2,
               ),
-              onPressed: controller.addMoney,
-              child: Text(
-                'add_money'.tr,
+              onPressed: () {
+                // Order now action
+              },
+              child: const Text(
+                'បញ្ជាញឥឡូវ', // Order now
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-          SizedBox(width: 16),
-          // "Home" Button
-          FloatingActionButton(
-            onPressed: controller.goToHome,
-            child: Icon(Icons.home, color: Color(0xFF6A932D)),
-            backgroundColor: Colors.white,
-            elevation: 2,
+          const SizedBox(width: 16),
+          Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.home_outlined, color: Colors.black),
+              onPressed: () => Get.back(),
+            ),
           ),
         ],
       ),
@@ -134,130 +148,179 @@ class WalletView extends GetView<WalletController> {
     );
   }
 
-  // Helper for the "My Wallet" card
   Widget _buildMyWalletCard() {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          // Replace with your logo
-          Container(
-            width: 50,
-            height: 50,
+    return Obx(() => GestureDetector(
+          onTap: () => controller.selectPaymentMethod('wallet'),
+          child: Container(
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Color(0xFF6A932D), // Green
-              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: controller.selectedPaymentMethod.value == 'wallet'
+                  ? Border.all(color: const Color(0xFF84C341), width: 2)
+                  : null,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.1),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
-            child: Icon(Icons.food_bank_outlined,
-                color: Colors.white), // Placeholder icon
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                Text(
-                  'wallet_account_name'.tr,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF84C341),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(
+                    Icons.account_balance_wallet,
+                    color: Colors.white,
+                    size: 24,
                   ),
                 ),
-                SizedBox(height: 4),
-                Text(
-                  'wallet_account_desc'.tr,
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'គណនី Phum Num Banh Chok',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'ទំនាក់ទំនងអ្នកក្រុមហ៊ុនដើម្បីបង្កើនប្រាក់របស់អ្នក',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey[600],
+                        ),
+                        maxLines: 2,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Icon(
+                  controller.selectedPaymentMethod.value == 'wallet'
+                      ? Icons.radio_button_checked
+                      : Icons.radio_button_unchecked,
+                  color: controller.selectedPaymentMethod.value == 'wallet'
+                      ? const Color(0xFF84C341)
+                      : Colors.grey,
+                  size: 24,
                 ),
               ],
             ),
           ),
-          SizedBox(width: 12),
-          // Toggle Visibility Button
-          Obx(() => IconButton(
-                icon: Icon(
-                  controller.isBalanceVisible.value
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
-                  color: Colors.grey,
-                ),
-                onPressed: controller.toggleBalanceVisibility,
-              )),
-        ],
-      ),
-    );
+        ));
   }
 
-  // Helper for the "ABA KHQR" card
   Widget _buildBankPaymentCard() {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          // Replace with ABA logo
-          Container(
-            width: 50,
-            height: 50,
+    return Obx(() => GestureDetector(
+          onTap: () => controller.selectPaymentMethod('bank'),
+          child: Container(
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.blue[900], // ABA color
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Text(
-                'KHQR',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: controller.selectedPaymentMethod.value == 'bank'
+                  ? Border.all(color: const Color(0xFF84C341), width: 2)
+                  : null,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.1),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
                 ),
-              ),
+              ],
             ),
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                Text(
-                  'aba_khqr'.tr,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF003D6F), // ABA blue
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Stack(
+                    children: [
+                      const Positioned(
+                        top: 8,
+                        left: 8,
+                        right: 8,
+                        child: Text(
+                          'ABA',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 6,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 2),
+                          decoration: const BoxDecoration(
+                            color: Colors.red,
+                          ),
+                          child: const Text(
+                            'KHQR',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 8,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 4),
-                Text(
-                  'scan_to_pay'.tr,
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'ABA KHQR',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Scan to pay with any banking app',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.grey[400],
+                  size: 16,
                 ),
               ],
             ),
           ),
-          Icon(Icons.arrow_forward_ios_rounded,
-              color: Colors.grey[400], size: 18),
-        ],
-      ),
-    );
+        ));
   }
 }

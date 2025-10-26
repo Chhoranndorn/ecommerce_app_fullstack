@@ -2,6 +2,7 @@ import 'package:e_commerce_app/app/modules/cart/controllers/cart_controller.dart
 import 'package:e_commerce_app/app/modules/favorite/views/favorite_view.dart';
 import 'package:e_commerce_app/app/modules/home/controllers/home_controller.dart';
 import 'package:e_commerce_app/app/modules/order_history/views/order_history_view.dart';
+import 'package:e_commerce_app/app/modules/profile/controllers/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/dashboard_controller.dart';
@@ -29,6 +30,7 @@ class DashboardView extends GetView<DashboardController> {
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => DashboardController());
     Get.lazyPut(() => CartController());
+    Get.lazyPut(() => ProfileController());
     return Obx(() {
       return Scaffold(
         body: pages[controller.selectedIndex.value],

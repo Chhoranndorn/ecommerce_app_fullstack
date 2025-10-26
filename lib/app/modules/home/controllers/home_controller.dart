@@ -41,6 +41,36 @@ class HomeController extends GetxController {
 
   // Dashboard state
 
+  // Food carousel (horizontal scroll in green section)
+  var foodCarousel = [
+    {"image": Images.catDrink},
+    {"image": Images.catDrink},
+    {"image": Images.catDrink},
+    {"image": Images.catDrink},
+  ].obs;
+
+  // Banner carousel images
+  var imageUrls = [
+    {"image": Images.catDrink},
+    {"image": Images.catDrink},
+    {"image": Images.catDrink},
+  ].obs;
+
+  // Special items grid (4x2 with circular images and badges)
+  var specialItems = [
+    {"name": "ទឹកត្រូក", "image": Images.catDrink, "isSpecial": true},
+    {"name": "សាច់ក្រក", "image": Images.catDrink, "isSpecial": true},
+    {"name": "ទឹក", "image": Images.catDrink, "isSpecial": false},
+    {"name": "កែសៅខ្មៅ", "image": Images.catDrink, "isSpecial": false},
+    {"name": "បៃតង", "image": Images.catDrink, "isSpecial": true},
+    {"name": "សុ", "image": Images.catDrink, "isSpecial": true},
+    {"name": "មុខ", "image": Images.catDrink, "isSpecial": false},
+    {"name": "ប្រជុំ", "image": Images.catDrink, "isSpecial": false},
+  ].obs;
+
+  // Featured large image
+  var featuredImage = {"image": Images.catDrink}.obs;
+
   var categories = [
     {"name": "សម្ល", "icon": Images.catDrink},
     {"name": "បន្លែ", "icon": Images.catDrink},
@@ -61,14 +91,12 @@ class HomeController extends GetxController {
   ].obs;
 
   var products = [
-    {"name": "ទឹកត្រីមួយកែវ", "price": 2.0, "image": Images.catDrink},
-    {"name": "សាច់ក្រក", "price": 10.0, "image": Images.catDrink},
-    {"name": "កាហ្វេតែខែ", "price": 1.0, "image": Images.catDrink},
-  ].obs;
-  var imageUrls = [
-    {"image": Images.catDrink},
-    {"image": Images.catDrink},
-    {"image": Images.catDrink},
+    {"name": "ទឹកត្រីមួយកែវ ត្រី", "price": 2.0, "image": Images.catDrink},
+    {"name": "សាច់ក្រកបន្លែ", "price": 10.0, "image": Images.catDrink},
+    {"name": "កាហ្វេតែខែតែខណ", "price": 1.0, "image": Images.catDrink},
+    {"name": "ទឹកក្រូចមួយកែវ", "price": 3.0, "image": Images.catDrink},
+    {"name": "សម្លម្ជូរ", "price": 2.0, "image": Images.catDrink},
+    {"name": "សមុយ", "price": 3.0, "image": Images.catDrink},
   ].obs;
 
   Future<void> fetchProfile() async {

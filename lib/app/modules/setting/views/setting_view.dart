@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/app/modules/setting/controllers/setting_controller.dart';
+import 'package:e_commerce_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,7 +32,7 @@ class SettingView extends GetView<SettingController> {
           _buildSectionHeader('settings_account'.tr),
           _buildSettingsTile(
             title: 'settings_notifications'.tr,
-            onTap: controller.goToNotifications,
+            onTap: () => Get.toNamed(Routes.NOTIFICATION),
           ),
           _buildSettingsTile(
             title: 'settings_language'.tr,
@@ -42,11 +43,11 @@ class SettingView extends GetView<SettingController> {
           _buildSectionHeader('settings_other'.tr),
           _buildSettingsTile(
             title: 'settings_policy'.tr,
-            onTap: controller.goToPolicy,
+            onTap: () => Get.toNamed(Routes.ABOUTUS),
           ),
           _buildSettingsTile(
             title: 'settings_contact'.tr,
-            onTap: controller.goToContact,
+            onTap: () => Get.toNamed(Routes.ABOUTUS),
           ),
         ],
       ),
@@ -73,18 +74,20 @@ class SettingView extends GetView<SettingController> {
   // Helper for the tappable list tiles
   Widget _buildSettingsTile(
       {required String title, required VoidCallback onTap}) {
-    return ListTile(
-      title: Text(
-        title,
-        style: TextStyle(fontSize: 16),
-      ),
-      trailing: Icon(
-        Icons.arrow_forward_ios_rounded,
-        size: 16,
-        color: Colors.grey[400],
-      ),
+    return InkWell(
       onTap: onTap,
-      tileColor: Colors.white, // White background for the tile
+      child: ListTile(
+        title: Text(
+          title,
+          style: TextStyle(fontSize: 16),
+        ),
+        trailing: Icon(
+          Icons.arrow_forward_ios_rounded,
+          size: 16,
+          color: Colors.grey[400],
+        ),
+        tileColor: Colors.white, // White background for the tile
+      ),
     );
   }
 }

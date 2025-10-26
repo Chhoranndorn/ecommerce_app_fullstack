@@ -3,9 +3,14 @@ import 'package:get/get.dart';
 
 class WalletController extends GetxController {
   var isBalanceVisible = true.obs;
+  var selectedPaymentMethod = 'wallet'.obs; // 'wallet' or 'bank'
 
   void toggleBalanceVisibility() {
     isBalanceVisible.value = !isBalanceVisible.value;
+  }
+
+  void selectPaymentMethod(String method) {
+    selectedPaymentMethod.value = method;
   }
 
   void sendMoney() {
