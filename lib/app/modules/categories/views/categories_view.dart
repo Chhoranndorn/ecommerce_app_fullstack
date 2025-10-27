@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 // Mock data to represent your food items and categories.
 // Replace this with your actual data from your controller.
@@ -54,6 +56,22 @@ class _CategoriesViewState extends State<CategoriesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+          onPressed: () => Get.back(),
+        ),
+        title: const Text(
+          'បញ្ជីចូលចិត្ត', // "Favorite List"
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+      ),
       backgroundColor: Colors.grey[50],
       body: SafeArea(
         child: Column(
@@ -73,7 +91,6 @@ class _CategoriesViewState extends State<CategoriesView> {
                 children: [
                   // Side Navigation Menu
                   _buildSideNavMenu(),
-
                   // Vertical Food Item List
                   _buildFoodList(),
                 ],
