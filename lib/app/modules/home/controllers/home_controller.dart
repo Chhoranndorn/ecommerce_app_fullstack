@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/app/data/providers/models/banner.dart';
 import 'package:e_commerce_app/app/data/providers/models/category.dart';
 import 'package:e_commerce_app/app/data/providers/models/product.dart';
 import 'package:e_commerce_app/app/data/providers/models/special.dart';
@@ -13,9 +14,13 @@ class HomeController extends GetxController {
   var user = {}.obs;
   var isLoading = true.obs;
   var errorMessage = "".obs;
-  // var specials = <Special>[].obs;
-  // var categories = <Category>[].obs;
-  // var products = <Product>[].obs;
+
+  // API Data observables
+  var banners = <Banner>[].obs;
+  var specials = <Special>[].obs;
+  var categories = <Category>[].obs;
+  var featuredProducts = <Product>[].obs;
+  var products = <Product>[].obs;
 
   @override
   void onInit() {
@@ -28,76 +33,56 @@ class HomeController extends GetxController {
     try {
       isLoading.value = true;
       final data = await _service.fetchHomeData();
-      // specials.assignAll(data["specials"] as List<Special>);
-      // categories.assignAll(data["categories"] as List<Category>);
-      // products.assignAll(data["products"] as List<Product>);
+
+      // Assign API data to observables
+      banners.assignAll(data["banners"] as List<Banner>);
+      specials.assignAll(data["specials"] as List<Special>);
+      categories.assignAll(data["categories"] as List<Category>);
+      featuredProducts.assignAll(data["featured_products"] as List<Product>);
+      products.assignAll(data["products"] as List<Product>);
+
+      // Convert data to UI-compatible format
+
+      // Banners to imageUrls for carousel
+      categoriesUrls.assignAll(
+          categories.map((categories) => {"icon": categories.icon}).toList());
+      imageUrls
+          .assignAll(banners.map((banner) => {"image": banner.image}).toList());
+      // print("kkkkk:$imageUrls");
+      print("kkkkk:$categoriesUrls");
+
+      // Featured products to foodCarousel
+      foodCarousel.assignAll(featuredProducts
+          .take(4)
+          .map((product) => {"image": product.image})
+          .toList());
+
+      // Specials to specialItems grid
+      specialItems.assignAll(specials
+          .map((special) =>
+              {"name": special.name, "image": special.image, "isSpecial": true})
+          .toList());
+
       errorMessage.value = "";
     } catch (e) {
-      errorMessage.value = "Failed to load data";
+      errorMessage.value = "Failed to load data: ${e.toString()}";
+      print("Error fetching home data: $e");
     } finally {
       isLoading.value = false;
     }
   }
 
-  // Dashboard state
+  // Dashboard state - converted from API data for UI compatibility
 
-  // Food carousel (horizontal scroll in green section)
-  var foodCarousel = [
-    {"image": Images.catDrink},
-    {"image": Images.catDrink},
-    {"image": Images.catDrink},
-    {"image": Images.catDrink},
-  ].obs;
+  // Food carousel (horizontal scroll in green section) - uses featured products
+  var foodCarousel = <Map<String, dynamic>>[].obs;
 
   // Banner carousel images
-  var imageUrls = [
-    {"image": Images.catDrink},
-    {"image": Images.catDrink},
-    {"image": Images.catDrink},
-  ].obs;
+  var imageUrls = <Map<String, dynamic>>[].obs;
+  var categoriesUrls = <Map<String, dynamic>>[].obs;
 
   // Special items grid (4x2 with circular images and badges)
-  var specialItems = [
-    {"name": "ទឹកត្រូក", "image": Images.catDrink, "isSpecial": true},
-    {"name": "សាច់ក្រក", "image": Images.catDrink, "isSpecial": true},
-    {"name": "ទឹក", "image": Images.catDrink, "isSpecial": false},
-    {"name": "កែសៅខ្មៅ", "image": Images.catDrink, "isSpecial": false},
-    {"name": "បៃតង", "image": Images.catDrink, "isSpecial": true},
-    {"name": "សុ", "image": Images.catDrink, "isSpecial": true},
-    {"name": "មុខ", "image": Images.catDrink, "isSpecial": false},
-    {"name": "ប្រជុំ", "image": Images.catDrink, "isSpecial": false},
-  ].obs;
-
-  // Featured large image
-  var featuredImage = {"image": Images.catDrink}.obs;
-
-  var categories = [
-    {"name": "សម្ល", "icon": Images.catDrink},
-    {"name": "បន្លែ", "icon": Images.catDrink},
-    {"name": "សាច់", "icon": Images.catDrink},
-    {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
-    {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
-    {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
-    {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
-    {"name": "ភេសជ្ជៈ", "icon": Images.catDrink},
-  ].obs;
-
-  var specials = [
-    {"name": "Special Dish 1", "image": Images.catDrink},
-    {"name": "Special Dish 2", "image": Images.catDrink},
-    {"name": "Special Dish 3", "image": Images.catDrink},
-    {"name": "Special Dish 3", "image": Images.catDrink},
-    {"name": "Special Dish 3", "image": Images.catDrink},
-  ].obs;
-
-  var products = [
-    {"name": "ទឹកត្រីមួយកែវ ត្រី", "price": 2.0, "image": Images.catDrink},
-    {"name": "សាច់ក្រកបន្លែ", "price": 10.0, "image": Images.catDrink},
-    {"name": "កាហ្វេតែខែតែខណ", "price": 1.0, "image": Images.catDrink},
-    {"name": "ទឹកក្រូចមួយកែវ", "price": 3.0, "image": Images.catDrink},
-    {"name": "សម្លម្ជូរ", "price": 2.0, "image": Images.catDrink},
-    {"name": "សមុយ", "price": 3.0, "image": Images.catDrink},
-  ].obs;
+  var specialItems = <Map<String, dynamic>>[].obs;
 
   Future<void> fetchProfile() async {
     try {

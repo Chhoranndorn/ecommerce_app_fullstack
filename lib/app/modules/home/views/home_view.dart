@@ -304,185 +304,221 @@ class HomeView extends GetView<HomeController> {
               ),
 
               // Products Grid
-              Obx(() => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: controller.products.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.68,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing: 12,
+              Obx(() {
+                if (controller.isLoading.value && controller.products.isEmpty) {
+                  return const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(40),
+                      child: CircularProgressIndicator(
+                        color: Color(0xFF84C341),
                       ),
-                      itemBuilder: (context, index) {
-                        final product = controller.products[index];
-                        return GestureDetector(
-                          onTap: () {
-                            Get.toNamed(Routes.PRODUCT_DETAIL);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.08),
-                                  blurRadius: 6,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
+                    ),
+                  );
+                }
+
+                if (controller.errorMessage.value.isNotEmpty &&
+                    controller.products.isEmpty) {
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          Text(
+                            controller.errorMessage.value,
+                            style: const TextStyle(color: Colors.red),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: controller.fetchHomeData,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF84C341),
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Product Image
-                                Expanded(
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(12),
-                                    ),
-                                    child: Img.widget(
-                                      product['image'].toString(),
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                    ),
+                            child: const Text('ព្យាយាមម្តងទៀត'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: controller.products.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.68,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                    ),
+                    itemBuilder: (context, index) {
+                      final product = controller.products[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.PRODUCT_DETAIL);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.08),
+                                blurRadius: 6,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Product Image
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(12),
+                                  ),
+                                  child: Img.widget(
+                                    product.image,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height: double.infinity,
                                   ),
                                 ),
+                              ),
 
-                                // Product Info Section
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // Product Name
-                                      Text(
-                                        product['name'].toString(),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w600,
-                                          height: 1.2,
-                                        ),
+                              // Product Info Section
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Product Name
+                                    Text(
+                                      product.name,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w600,
+                                        height: 1.2,
                                       ),
-                                      const SizedBox(height: 6),
+                                    ),
+                                    const SizedBox(height: 6),
 
-                                      // Price and Add Button Row
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            '\$${product['price']}',
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black87,
+                                    // Price and Add Button Row
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '\$${product.price.toStringAsFixed(2)}',
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Get.snackbar(
+                                              'បានបន្ថែម',
+                                              '${product.name} បានបន្ថែមទៅកន្ត្រក',
+                                              snackPosition:
+                                                  SnackPosition.BOTTOM,
+                                              backgroundColor:
+                                                  const Color(0xFF84C341),
+                                              colorText: Colors.white,
+                                              duration:
+                                                  const Duration(seconds: 2),
+                                            );
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.all(6),
+                                            decoration: const BoxDecoration(
+                                              color: Color(0xFF84C341),
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: const Icon(
+                                              Icons.add,
+                                              color: Colors.white,
+                                              size: 18,
                                             ),
                                           ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              Get.snackbar(
-                                                'បានបន្ថែម',
-                                                '${product['name']} បានបន្ថែមទៅកន្ត្រក',
-                                                snackPosition:
-                                                    SnackPosition.BOTTOM,
-                                                backgroundColor:
-                                                    const Color(0xFF84C341),
-                                                colorText: Colors.white,
-                                                duration:
-                                                    const Duration(seconds: 2),
-                                              );
-                                            },
-                                            child: Container(
-                                              padding: const EdgeInsets.all(6),
-                                              decoration: const BoxDecoration(
-                                                color: Color(0xFF84C341),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8),
+
+                                    // Store Button
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        width: double.infinity,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                          vertical: 8,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFF84C341),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.all(3),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white
+                                                    .withOpacity(0.3),
                                                 shape: BoxShape.circle,
                                               ),
                                               child: const Icon(
-                                                Icons.add,
+                                                Icons.storefront,
                                                 color: Colors.white,
-                                                size: 18,
+                                                size: 12,
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 8),
-
-                                      // Store Button
-                                      GestureDetector(
-                                        onTap: () {},
-                                        child: Container(
-                                          width: double.infinity,
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                            vertical: 8,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xFF84C341),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.all(3),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white
-                                                      .withOpacity(0.3),
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: const Icon(
-                                                  Icons.storefront,
+                                            const SizedBox(width: 6),
+                                            const Expanded(
+                                              child: Text(
+                                                'ទៅហាងអាហារដ្ឋាន',
+                                                textAlign: TextAlign.center,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
                                                   color: Colors.white,
-                                                  size: 12,
+                                                  fontSize: 11,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
                                               ),
-                                              const SizedBox(width: 6),
-                                              const Expanded(
-                                                child: Text(
-                                                  'ទៅហាងអាហារដ្ឋាន',
-                                                  textAlign: TextAlign.center,
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 11,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                              ),
-                                              const Icon(
-                                                Icons.arrow_forward_ios,
-                                                color: Colors.white,
-                                                size: 10,
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                            const Icon(
+                                              Icons.arrow_forward_ios,
+                                              color: Colors.white,
+                                              size: 10,
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        );
-                      },
-                    ),
-                  )),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              }),
 
               const SizedBox(height: 80),
             ],
