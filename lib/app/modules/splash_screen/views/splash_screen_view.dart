@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/app/routes/app_pages.dart';
 import 'package:e_commerce_app/util/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,8 @@ class SplashScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(const Duration(seconds: 2), () {
-      Get.offAllNamed('/onboarding'); // Navigate to Dashboard
+      // Get.offAllNamed('/onboarding'); // Navigate to Dashboard
+      Get.offAllNamed(Routes.DASHBOARD); // Navigate to Dashboard
     });
 
     return Scaffold(

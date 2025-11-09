@@ -21,5 +21,5 @@ class Images {
   static const String product3 = 'assets/images/food3.png';
 
   // 🔹 Others
-  static const String placeholder = 'assets/images/placeholder.png';
+  static const String placeholder = 'assets/images/placeholder.jpg';
 }
