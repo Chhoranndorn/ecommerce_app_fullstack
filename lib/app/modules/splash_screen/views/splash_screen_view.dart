@@ -21,7 +21,8 @@ class SplashScreenView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              Images.splashLogo,
+              // Images.splashLogo,
+              Images.catDrink,
               width: 150,
             ),
             const SizedBox(height: 20),
